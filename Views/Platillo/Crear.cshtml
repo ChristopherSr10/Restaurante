@@ -1,0 +1,20 @@
+@model pruebarestaurante.Models.PlatilloViewModel
+@{ ViewData["Title"] = "Crear Platillo"; }
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Guardar" method="post">
+    <div class="form-group">
+        <label>Nombre Platillo:</label>
+        <input asp-for="nombrePlatillo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Precio:</label>
+        <input asp-for="precioPlatillo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input asp-for="descripcionPlatillo" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
