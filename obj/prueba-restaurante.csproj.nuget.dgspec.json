@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "G:\\workspace\\pruebarestaurante\\prueba-restaurante.csproj": {}
+    "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\prueba-restaurante.csproj": {}
   },
   "projects": {
-    "G:\\workspace\\pruebarestaurante\\prueba-restaurante.csproj": {
+    "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\prueba-restaurante.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\workspace\\pruebarestaurante\\prueba-restaurante.csproj",
+        "projectUniqueName": "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\prueba-restaurante.csproj",
         "projectName": "prueba-restaurante",
-        "projectPath": "G:\\workspace\\pruebarestaurante\\prueba-restaurante.csproj",
-        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "G:\\workspace\\pruebarestaurante\\obj\\",
+        "projectPath": "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\prueba-restaurante.csproj",
+        "packagesPath": "C:\\Users\\Angel Angeles Molina\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Angel Angeles Molina\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -64,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

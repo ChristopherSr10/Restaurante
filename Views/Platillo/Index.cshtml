@@ -9,7 +9,9 @@
             <th>Nombre Platillo</th>
             <th>Precio Platilo</th>
             <th>Descripcion Platillo</th>
-            <th><a asp-action="Crear">Crear nueva</a></th>
+            <th>
+                <a asp-action="Crear"  class="btn btn-success" type="button">Crear platillo</a>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +22,10 @@
             <td>@Model.Rows[i]["precioPlatillo"]</td>
             <td>@Model.Rows[i]["descripcionPlatillo"]</td>
             <td>
-                <a asp-action="Editar" asp-route-Id='@Model.Rows[i]["idPlatillo"]'>Editar</a>
-                <a asp-action="Eliminar" asp-route-Id='@Model.Rows[i]["idPlatillo"]'>Eliminar</a>
+                <div class="d-grid gap-2 d-md-block">
+                    <a asp-action="Editar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-primary" type="button">Editar</a>
+                    <a  asp-action="Eliminar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-danger" type="button">Eliminar</a>
+                </div>
             </td>
         </tr>
     }
