@@ -1,5 +1,7 @@
 @model pruebarestaurante.Models.PlatilloViewModel
-@{ ViewData["Title"] = "Crear Platillo"; }
+@{
+    ViewData["Title"] = "Crear Platillo";
+}
 
 <h1>@ViewData["Title"]</h1>
 
@@ -18,3 +20,20 @@
     </div>
     <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
+
+
+ @* ingrediente
+
+
+<form asp-action="Guardar" method="post">
+    <div class="form-group">
+        <label>Nombre Ingrediente:</label>
+        <input asp-for="nombreIngrediente" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Cantidad Disponible:</label>
+        <input asp-for="cantidadDisponible" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+  *@

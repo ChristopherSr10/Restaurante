@@ -3,18 +3,16 @@
 <div class="jumbotron">
     <h1 class="text-center">@ViewData["Title"]</h1>
 </div>
-<table class="table table-bordered"> 
+<table id="platillosTable" class="table table-bordered"> 
     <thead class="thead-light">
         <tr>
             <th>Nombre Platillo</th>
-            <th>Precio Platilo</th>
-            <th>Descripcion Platillo</th>
-            <th>
-                <a asp-action="Crear"  class="btn btn-success" type="button">Crear platillo</a>
-            </th>
+            <th>Precio Platillo</th>
+            <th>Descripción Platillo</th>
+            <th><a asp-action="Crear" class="btn btn-success">Crear nueva</a></th>
         </tr>
     </thead>
-    <tbody>
+     <tbody>
     @for (int i = 0; i < Model.Rows.Count; i++)
     {
         <tr>
@@ -23,11 +21,25 @@
             <td>@Model.Rows[i]["descripcionPlatillo"]</td>
             <td>
                 <div class="d-grid gap-2 d-md-block">
-                    <a asp-action="Editar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-primary" type="button">Editar</a>
-                    <a  asp-action="Eliminar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-danger" type="button">Eliminar</a>
-                </div>
+                        <a asp-action="Editar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-primary"
+                            type="button">Editar</a>
+                        <a asp-action="Eliminar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-danger"
+                            type="button">Eliminar</a>
+                    </div>
             </td>
         </tr>
     }
 </tbody>
 </table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  
+    <script>
+        $(document).ready(function() {
+            $('#platillosTable').DataTable();
+        });
+    </script>
+}

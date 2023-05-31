@@ -31,28 +31,28 @@ namespace pruebarestaurante.Controllers
         }
 
         [HttpPost]
-public IActionResult Guardar(PlatilloViewModel platillo)
-{
-    if (ModelState.IsValid)
-    {
-        using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+        public IActionResult Guardar(PlatilloViewModel platillo)
         {
-            cnx.Open();
-            string query = "INSERT INTO platillo (nombrePlatillo, precioPlatillo, descripcionPlatillo) VALUES (@nombrePlatillo, @precioPlatillo, @descripcionPlatillo)";
-            MySqlCommand cmd = new MySqlCommand(query, cnx);
-            cmd.Parameters.AddWithValue("@nombrePlatillo", platillo.nombrePlatillo);
-            cmd.Parameters.AddWithValue("@precioPlatillo", platillo.precioPlatillo);
-            cmd.Parameters.AddWithValue("@descripcionPlatillo", platillo.descripcionPlatillo);
-            cmd.Parameters.AddWithValue("@idPlatillo", platillo.idPlatillo);
-            cmd.ExecuteNonQuery();
-            cnx.Close();
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+                {
+                    cnx.Open();
+                    string query = "INSERT INTO platillo (nombrePlatillo, precioPlatillo, descripcionPlatillo) VALUES (@nombrePlatillo, @precioPlatillo, @descripcionPlatillo)";
+                    MySqlCommand cmd = new MySqlCommand(query, cnx);
+                    cmd.Parameters.AddWithValue("@nombrePlatillo", platillo.nombrePlatillo);
+                    cmd.Parameters.AddWithValue("@precioPlatillo", platillo.precioPlatillo);
+                    cmd.Parameters.AddWithValue("@descripcionPlatillo", platillo.descripcionPlatillo);
+                    cmd.Parameters.AddWithValue("@idPlatillo", platillo.idPlatillo);
+                    cmd.ExecuteNonQuery();
+                    cnx.Close();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(platillo);
         }
-
-        return RedirectToAction("Index");
-    }
-
-    return View(platillo);
-}
 
         public IActionResult Editar(int id)
         {
@@ -112,28 +112,28 @@ public IActionResult Guardar(PlatilloViewModel platillo)
         }
 
         public IActionResult Eliminar(int id)
-{
-    using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
-    {
-        cnx.Open();
-        
-        // Eliminar los registros relacionados en la tabla "platillo_ingrediente"
-        string deleteQuery = "DELETE FROM platillo_ingrediente WHERE idPlatillo = @idPlatillo";
-        MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, cnx);
-        deleteCmd.Parameters.AddWithValue("@idPlatillo", id);
-        deleteCmd.ExecuteNonQuery();
+        {
+            using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+            {
+                cnx.Open();
 
-        // Eliminar el platillo
-        string query = "DELETE FROM platillo WHERE idPlatillo = @idPlatillo";
-        MySqlCommand cmd = new MySqlCommand(query, cnx);
-        cmd.Parameters.AddWithValue("@idPlatillo", id);
-        cmd.ExecuteNonQuery();
-        
-        cnx.Close();
-    }
+                // Eliminar los registros relacionados en la tabla "platillo_ingrediente"
+                string deleteQuery = "DELETE FROM platillo_ingrediente WHERE idPlatillo = @idPlatillo";
+                MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, cnx);
+                deleteCmd.Parameters.AddWithValue("@idPlatillo", id);
+                deleteCmd.ExecuteNonQuery();
 
-    return RedirectToAction("Index");
-}
+                // Eliminar el platillo
+                string query = "DELETE FROM platillo WHERE idPlatillo = @idPlatillo";
+                MySqlCommand cmd = new MySqlCommand(query, cnx);
+                cmd.Parameters.AddWithValue("@idPlatillo", id);
+                cmd.ExecuteNonQuery();
+
+                cnx.Close();
+            }
+
+            return RedirectToAction("Index");
+        }
 
     }
 }

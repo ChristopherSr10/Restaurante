@@ -1706,24 +1706,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Angel Angeles Molina\\.nuget\\packages\\": {}
+    "C:\\Users\\chris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\prueba-restaurante.csproj",
+      "projectUniqueName": "G:\\workspace\\pruebarestaurante\\prueba-restaurante.csproj",
       "projectName": "prueba-restaurante",
-      "projectPath": "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\prueba-restaurante.csproj",
-      "packagesPath": "C:\\Users\\Angel Angeles Molina\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Angel Angeles Molina\\Downloads\\Restaurante\\obj\\",
+      "projectPath": "G:\\workspace\\pruebarestaurante\\prueba-restaurante.csproj",
+      "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+      "outputPath": "G:\\workspace\\pruebarestaurante\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Angel Angeles Molina\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1766,7 +1768,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -31,27 +31,27 @@ namespace pruebarestaurante.Controllers
         }
 
         [HttpPost]
-public IActionResult Guardar(IngredienteViewModel ingrediente)
-{
-    if (ModelState.IsValid)
-    {
-        using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+        public IActionResult Guardar(IngredienteViewModel ingrediente)
         {
-            cnx.Open();
-            string query = "INSERT INTO ingrediente (nombreIngrediente, cantidadDisponible) VALUES (@nombreIngrediente, @cantidadDisponible)";
-            MySqlCommand cmd = new MySqlCommand(query, cnx);
-            cmd.Parameters.AddWithValue("@nombreIngrediente", ingrediente.nombreIngrediente);
-            cmd.Parameters.AddWithValue("@cantidadDisponible", ingrediente.cantidadDisponible);
-            cmd.Parameters.AddWithValue("@idIngrediente", ingrediente.idIngrediente);
-            cmd.ExecuteNonQuery();
-            cnx.Close();
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+                {
+                    cnx.Open();
+                    string query = "INSERT INTO ingrediente (nombreIngrediente, cantidadDisponible) VALUES (@nombreIngrediente, @cantidadDisponible)";
+                    MySqlCommand cmd = new MySqlCommand(query, cnx);
+                    cmd.Parameters.AddWithValue("@nombreIngrediente", ingrediente.nombreIngrediente);
+                    cmd.Parameters.AddWithValue("@cantidadDisponible", ingrediente.cantidadDisponible);
+                    cmd.Parameters.AddWithValue("@idIngrediente", ingrediente.idIngrediente);
+                    cmd.ExecuteNonQuery();
+                    cnx.Close();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(ingrediente);
         }
-
-        return RedirectToAction("Index");
-    }
-
-    return View(ingrediente);
-}
 
         public IActionResult Editar(int id)
         {
@@ -69,7 +69,7 @@ public IActionResult Guardar(IngredienteViewModel ingrediente)
                         {
                             idIngrediente = Convert.ToInt32(reader["idIngrediente"]),
                             nombreIngrediente = reader["nombreIngrediente"].ToString(),
-                            cantidadDisponible= Convert.ToInt32(reader["cantidadDisponible"]),
+                            cantidadDisponible = Convert.ToInt32(reader["cantidadDisponible"]),
                         };
 
                         return View(ingrediente);
@@ -108,28 +108,28 @@ public IActionResult Guardar(IngredienteViewModel ingrediente)
         }
 
         public IActionResult Eliminar(int id)
-{
-    using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
-    {
-        cnx.Open();
-        
-        // Eliminar los registros relacionados en la tabla "platillo_ingrediente"
-        string deleteQuery = "DELETE FROM platillo_ingrediente WHERE idIngrediente = @idIngrediente";
-        MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, cnx);
-        deleteCmd.Parameters.AddWithValue("@idIngrediente", id);
-        deleteCmd.ExecuteNonQuery();
+        {
+            using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+            {
+                cnx.Open();
 
-        // Eliminar el ingrediente
-        string query = "DELETE FROM ingrediente WHERE idIngrediente = @idIngrediente";
-        MySqlCommand cmd = new MySqlCommand(query, cnx);
-        cmd.Parameters.AddWithValue("@idIngrediente", id);
-        cmd.ExecuteNonQuery();
-        
-        cnx.Close();
-    }
+                // Eliminar los registros relacionados en la tabla "platillo_ingrediente"
+                string deleteQuery = "DELETE FROM platillo_ingrediente WHERE idIngrediente = @idIngrediente";
+                MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, cnx);
+                deleteCmd.Parameters.AddWithValue("@idIngrediente", id);
+                deleteCmd.ExecuteNonQuery();
 
-    return RedirectToAction("Index");
-}
+                // Eliminar el ingrediente
+                string query = "DELETE FROM ingrediente WHERE idIngrediente = @idIngrediente";
+                MySqlCommand cmd = new MySqlCommand(query, cnx);
+                cmd.Parameters.AddWithValue("@idIngrediente", id);
+                cmd.ExecuteNonQuery();
+
+                cnx.Close();
+            }
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
