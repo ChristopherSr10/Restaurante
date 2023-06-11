@@ -1,17 +1,12 @@
-@model pruebarestaurante.Models.PlatilloViewModel
+@model pruebarestaurante.Models.PlatilloIngredienteViewModel
 
 <h2>Eliminar Platillo</h2>
 
-<div>
-    <h4>¿Estás seguro de que deseas eliminar el platillo?</h4>
-    <div>
-        <h4>Nombre del platillo: @Model.nombrePlatillo</h4>
-        <h4>Precio del platillo: @Model.precioPlatillo</h4>
-        <h4>Descripción del platillo: @Model.descripcionPlatillo</h4>
-    </div>
-    <form asp-action="Eliminar" asp-controller="Platillo" method="post">
-        <input type="hidden" asp-for="idPlatillo" />
-        <input type="submit" value="Eliminar" class="btn btn-danger" />
-        <a asp-action="Index" asp-controller="Platillo">Cancelar</a>
-    </form>
-</div>
+<p>¿Estás seguro de que deseas eliminar este platillo?</p>
+
+<p>ID del Platillo: @Model</p>
+
+<form method="post" action="@Url.Action("Eliminar", "Platillo", new { id = Model })">
+    <input type="submit" value="Eliminar" class="btn btn-danger" />
+    <a href="@Url.Action("Index", "Platillo")" class="btn btn-secondary">Cancelar</a>
+</form>

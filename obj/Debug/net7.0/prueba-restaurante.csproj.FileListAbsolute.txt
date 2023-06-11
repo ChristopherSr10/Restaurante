@@ -107,3 +107,4 @@ G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.csproj.CopyCo
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.genruntimeconfig.cache
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\ref\prueba-restaurante.dll
 E:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb
+J:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb

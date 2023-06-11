@@ -24,6 +24,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[G:/workspace/pruebarestaurante/Views/Platillo/ConfirmarEliminar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cQ29uZmlybWFyRWxpbWluYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [G:/workspace/pruebarestaurante/Views/Platillo/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
