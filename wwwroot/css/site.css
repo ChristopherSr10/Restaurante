@@ -1,22 +1,151 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+
+
+.containerLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-box {
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.form-group input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.form-group .symbol {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.remember-me {
+    margin-bottom: 10px;
+}
+
+.remember-me label {
+    font-weight: normal;
+}
+
+.btn-login {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.card-text {
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+.menu-container {
+    margin-top: 30px;
+}
+
+.restaurant-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #d51c31;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.login-box {
+    margin: 200px;
 }

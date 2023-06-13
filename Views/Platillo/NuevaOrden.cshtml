@@ -1,0 +1,49 @@
+@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Nueva Orden";
+}
+<div class="jumbotron">
+    <h1 class="text-center">@ViewData["Nueva orden :)"]</h1>
+</div>
+
+<form id="ordenForm" method="post" action="@Url.Action("CrearOrden", "Platillo")">
+    <table id="platillosTable" class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Nombre Platillo</th>
+                <th>Descripción Platillo</th>
+                <th>Precio Platillo</th>
+                <th>Cantidad a ordenar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Rows[i]["nombrePlatillo"]</td>
+                    <td>@Model.Rows[i]["descripcionPlatillo"]</td>
+                    <td>@Model.Rows[i]["precioPlatillo"]</td>
+                    <td>
+                        <input type="number" class="form-control" name="cantidad[@i]" id="cantidad-@i" min="0" max="100"
+                            value="0">
+                        <input type="hidden" name="idPlatillo[@i]" value="@Model.Rows[i]["idPlatillo"]">
+                        <input type="hidden" name="precioPlatillo[@i]" value="@Model.Rows[i]["precioPlatillo"]">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Ordenar</button>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#platillosTable').DataTable();
+        });
+    </script>
+}

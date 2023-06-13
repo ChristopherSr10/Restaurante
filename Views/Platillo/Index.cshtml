@@ -1,45 +1,49 @@
-@model System.Data.DataTable
-@{ViewData["Title"]="Lista de Platillos";}
-<div class="jumbotron">
-    <h1 class="text-center">@ViewData["Title"]</h1>
-</div>
-<table id="platillosTable" class="table table-bordered"> 
-    <thead class="thead-light">
-        <tr>
-            <th>Nombre Platillo</th>
-            <th>Precio Platillo</th>
-            <th>Descripción Platillo</th>
-            <th><a asp-action="Crear" class="btn btn-success">Crear nueva</a></th>
-        </tr>
-    </thead>
-     <tbody>
-    @for (int i = 0; i < Model.Rows.Count; i++)
-    {
-        <tr>
-            <td>@Model.Rows[i]["nombrePlatillo"]</td>
-            <td>@Model.Rows[i]["precioPlatillo"]</td>
-            <td>@Model.Rows[i]["descripcionPlatillo"]</td>
-            <td>
-                <div class="d-grid gap-2 d-md-block">
-                        <a asp-action="Editar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-primary"
-                            type="button">Editar</a>
-                        <a asp-action="Eliminar" asp-route-Id='@Model.Rows[i]["idPlatillo"]' class="btn btn-danger"
-                            type="button">Eliminar</a>
-                    </div>
-            </td>
-        </tr>
-    }
-</tbody>
-</table>
-
-@section Scripts {
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-  
-    <script>
-        $(document).ready(function() {
-            $('#platillosTable').DataTable();
-        });
-    </script>
+@{
+    ViewBag.Title = "Platillo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="container menu-container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Órdenes</h5>
+                    <p class="card-text">Haz clic aquí para ver las órdenes.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo" asp-action="Ordenes">Ir a
+                        Órdenes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Nueva Orden</h5>
+                    <p class="card-text">Haz clic aquí para crear una nueva orden.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo"
+                        asp-action="NuevaOrden">Ir a Nueva Orden</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Menú</h5>
+                    <p class="card-text">Haz clic aquí para ver el menú.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo" asp-action="Menu">Ir a
+                        Menú</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Existencias de Menú</h5>
+                    <p class="card-text">Haz clic aquí para ver las existencias del menú.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo"
+                        asp-action="ExistenciasMenu">Ir a Existencias Menú</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

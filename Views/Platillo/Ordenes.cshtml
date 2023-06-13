@@ -1,0 +1,48 @@
+@model List<pruebarestaurante.Models.Orden>
+
+@{
+    ViewData["Title"] = "Ordenes";
+}
+
+<div class="jumbotron">
+    <h1 class="text-center">@ViewData["Ordenes"]</h1>
+</div>
+
+<table id="platillosTable" class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>Id Orden</th>
+            <th>Nombre Platillo</th>
+            <th>Cantidad a realizar</th>
+            <th>Eliminar platillos</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Model[i].IdOrden</td>
+                <td>@Model[i].NombrePlatillo</td>
+                <td>@Model[i].CantidadOrdenPlatillo</td>
+                <td>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a asp-action="EliminarPlatillo" asp-route-Id='@Model[i].IdOrden' class="btn btn-danger"
+                            type="button">Eliminar Platillo</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#platillosTable').DataTable();
+        });
+    </script>
+}

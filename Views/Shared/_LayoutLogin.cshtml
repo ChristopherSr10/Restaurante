@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,26 +14,8 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand restaurant-name" asp-area="" asp-controller="Platillo"
-                    asp-action="Index">Restaurante</a>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Platillo" asp-action="Index">Inicio</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="ms-3">
-                    <a href="@Url.Action("Logout", "Platillo")" class="btn btn-danger">
-                        <i class="fas fa-power-off me-2"></i> Cerrar sesión
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </header>
 
+    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

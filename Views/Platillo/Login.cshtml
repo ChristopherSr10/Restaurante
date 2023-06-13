@@ -1,0 +1,31 @@
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <div class="containerLogin">
+        <div class="login-box">
+            <form method="post">
+                <div class="form-group">
+                    <label for="username" class="symbol">👤</label>
+                    <input type="text" id="username" name="username" placeholder="Usuario" />
+                </div>
+                <div class="form-group">
+                    <label for="password" class="symbol">🔒</label>
+                    <input type="password" id="password" name="password" placeholder="Contraseña" />
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" />
+                    <label for="remember">Recuérdame</label>
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
