@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "Platillo";
+    Layout = "~/Views/Shared/_LayoutEmpleado.cshtml";
+}
+
+<div class="container menu-container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Órdenes</h5>
+                    <p class="card-text">Haz clic aquí para ver las órdenes.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo" asp-action="Ordenes">Ir a
+                        Órdenes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Nueva Orden</h5>
+                    <p class="card-text">Haz clic aquí para crear una nueva orden.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo"
+                        asp-action="NuevaOrden">Ir a Nueva Orden</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Existencias de Menú</h5>
+                    <p class="card-text">Haz clic aquí para ver las existencias del menú.</p>
+                    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Platillo"
+                        asp-action="ExistenciasMenu">Ir a Existencias Menú</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,66 +2,41 @@
 @{
     ViewData["Title"] = "Crear Platillo";
 }
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}
 
-<form asp-action="Guardar">
+<div class="jumbotron">
+    <h1 class="text-center restaurant-name">@ViewData["Title"]</h1>
+</div>
+<form id="platilloForm" asp-action="Guardar">
     <div class="form-group">
         <label>Nombre Platillo:</label>
-        <input asp-for="nombrePlatillo" class="form-control" />
+        <input asp-for="nombrePlatillo" class="form-control" required />
     </div>
     <div class="form-group">
         <label>Precio Platillo:</label>
-        <input asp-for="precioPlatillo" class="form-control" />
+        <input asp-for="precioPlatillo" class="form-control" required />
     </div>
     <div class="form-group">
         <label>Descripción Platillo:</label>
-        <textarea asp-for="descripcionPlatillo" class="form-control"></textarea>
+        <textarea asp-for="descripcionPlatillo" class="form-control" required></textarea>
     </div>
 
     <div class="form-group">
         <label>Número de Ingredientes:</label>
-        <input type="number" id="numeroIngredientes" class="form-control" min="0" />
+        <input type="number" id="numeroIngredientes" class="form-control" min="0" required />
     </div>
 
     <div id="ingredientes-container"></div>
 
-    <button type="button" onclick="crearFormularios()" class="btn btn-primary">Crear Ingredientes</button>
+    <div id="crearIngredientesBtnContainer" style="display: none;">
+        <button type="button" onclick="crearFormularios()" class="btn btn-primary">Crear Ingredientes</button>
+    </div>
 
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <div id="guardarBtnContainer" style="display: none;">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
 </form>
 
-@section Scripts {
-    <script>
-        function crearFormularios() {
-            var numeroIngredientes = parseInt(document.getElementById("numeroIngredientes").value);
-            var container = document.getElementById("ingredientes-container");
-            container.innerHTML = "";
 
-            for (var i = 0; i < numeroIngredientes; i++) {
-                var formGroup1 = document.createElement("div");
-                formGroup1.className = "form-group";
-                var label1 = document.createElement("label");
-                label1.innerText = "Nombre Ingrediente:";
-                var input1 = document.createElement("input");
-                input1.type = "text";
-                input1.name = "Ingredientes[" + i + "].nombreIngrediente";
-                input1.className = "form-control";
-                formGroup1.appendChild(label1);
-                formGroup1.appendChild(input1);
-
-                var formGroup2 = document.createElement("div");
-                formGroup2.className = "form-group";
-                var label2 = document.createElement("label");
-                label2.innerText = "Cantidad Disponible (porciones para hacer un platillo):";
-                var input2 = document.createElement("input");
-                input2.type = "text";
-                input2.name = "Ingredientes[" + i + "].cantidadDisponible";
-                input2.className = "form-control";
-                formGroup2.appendChild(label2);
-                formGroup2.appendChild(input2);
-
-                container.appendChild(formGroup1);
-                container.appendChild(formGroup2);
-            }
-        }
-    </script>
-}

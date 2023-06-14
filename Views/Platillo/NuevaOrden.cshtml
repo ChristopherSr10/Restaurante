@@ -2,48 +2,84 @@
 @{
     ViewData["Title"] = "Nueva Orden";
 }
+
+
 <div class="jumbotron">
-    <h1 class="text-center">@ViewData["Nueva orden :)"]</h1>
+    <h1 class="text-center restaurant-name">@ViewData["Title"]</h1>
 </div>
 
+@if (ViewBag.IdOrdenExists != null)
+{
+    <div class="alert alert-danger" role="alert">
+        El número de orden seleccionado ya está ocupado. Por favor, elija otro número de orden.
+    </div>
+}
+
 <form id="ordenForm" method="post" action="@Url.Action("CrearOrden", "Platillo")">
-    <table id="platillosTable" class="table table-bordered">
-        <thead class="thead-light">
+    <div class="form-group">
+        <label for="idOrden">Numero de mesa:</label>
+        <input type="number" name="idOrden" class="form-control" required>
+    </div>
+    <table id="platillosTable" class="table table-striped">
+        <thead>
             <tr>
-                <th>Nombre Platillo</th>
-                <th>Descripción Platillo</th>
-                <th>Precio Platillo</th>
-                <th>Cantidad a ordenar</th>
+                <th>Platillo</th>
+                <th>Precio</th>
+                <th>Descripción</th>
+                <th>Porciones Disponibles</th>
+                <th>Cantidad</th>
             </tr>
         </thead>
         <tbody>
             @for (int i = 0; i < Model.Rows.Count; i++)
             {
-                <tr>
-                    <td>@Model.Rows[i]["nombrePlatillo"]</td>
-                    <td>@Model.Rows[i]["descripcionPlatillo"]</td>
-                    <td>@Model.Rows[i]["precioPlatillo"]</td>
-                    <td>
-                        <input type="number" class="form-control" name="cantidad[@i]" id="cantidad-@i" min="0" max="100"
-                            value="0">
-                        <input type="hidden" name="idPlatillo[@i]" value="@Model.Rows[i]["idPlatillo"]">
-                        <input type="hidden" name="precioPlatillo[@i]" value="@Model.Rows[i]["precioPlatillo"]">
-                    </td>
-                </tr>
+                int porcionesDisponibles = (int)Model.Rows[i]["PorcionesDisponibles"];
+                if (porcionesDisponibles > 0)
+                {
+                    <tr>
+                        <td>@Model.Rows[i]["nombrePlatillo"]</td>
+                        <td>@Model.Rows[i]["precioPlatillo"]</td>
+                        <td>@Model.Rows[i]["descripcionPlatillo"]</td>
+                        <td>@porcionesDisponibles</td>
+                        <td>
+                            <input type="number" name="cantidad[@i]" min="0" max="@porcionesDisponibles" value="0" required>
+                            <input type="hidden" name="idPlatillo[@i]" value="@Model.Rows[i]["idPlatillo"]">
+                            <input type="hidden" name="precioPlatillo[@i]" value="@Model.Rows[i]["precioPlatillo"]">
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
     <button type="submit" class="btn btn-primary">Ordenar</button>
 </form>
 
+<div class="alert alert-warning mt-3" role="alert" id="warningMessage" style="display: none;">
+    Debe seleccionar al menos un platillo.
+</div>
+
 @section Scripts {
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
     <script>
         $(document).ready(function () {
             $('#platillosTable').DataTable();
+
+            $('#ordenForm').submit(function () {
+                var cantidadPlatillos = $('input[name^="cantidad"]').map(function () {
+                    return parseInt($(this).val());
+                }).get();
+
+                var totalCantidad = cantidadPlatillos.reduce(function (a, b) {
+                    return a + b;
+                }, 0);
+
+                if (totalCantidad === 0) {
+                    $('#warningMessage').show();
+                    return false; 
+                }
+            });
         });
     </script>
 }

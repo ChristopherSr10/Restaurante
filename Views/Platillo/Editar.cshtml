@@ -2,9 +2,13 @@
 @{
     ViewData["Title"] = "Editar Platillo";
 }
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}
 
-<h1>@ViewData["Title"]</h1>
-
+<div class="jumbotron">
+    <h1 class="text-center restaurant-name">@ViewData["Title"]</h1>
+</div>
 <form asp-action="Actualizar" method="post">
     <input type="hidden" asp-for="idPlatillo" />
     <div class="form-group">
@@ -22,21 +26,56 @@
 
     <h4>Ingredientes:</h4>
 
-    @foreach (var ingrediente in Model.Ingredientes)
+    @for (int i = 0; i < Model.Ingredientes.Count; i++)
     {
         <div class="form-group">
             <label>Nombre ingrediente:</label>
-            <input name="Ingredientes[@Model.Ingredientes.IndexOf(ingrediente)].nombreIngrediente"
-                value="@ingrediente.nombreIngrediente" class="form-control" />
+            <input name="Ingredientes[@i].nombreIngrediente" value="@Model.Ingredientes[i].nombreIngrediente"
+                class="form-control ingredient-input" readonly />
         </div>
         <div class="form-group">
             <label>Cantidad disponible:</label>
-            <input name="Ingredientes[@Model.Ingredientes.IndexOf(ingrediente)].cantidadDisponible"
-                value="@ingrediente.cantidadDisponible" class="form-control" />
+            <input name="Ingredientes[@i].cantidadDisponible" value="@Model.Ingredientes[i].cantidadDisponible"
+                class="form-control ingredient-input" readonly />
         </div>
-        <input type="hidden" name="Ingredientes[@Model.Ingredientes.IndexOf(ingrediente)].idIngrediente"
-            value="@ingrediente.idIngrediente" />
+        <input type="hidden" name="Ingredientes[@i].idIngrediente" value="@Model.Ingredientes[i].idIngrediente" />
     }
 
     <button type="submit" class="btn btn-primary">Actualizar</button>
 </form>
+
+<div class="alert alert-warning mt-3" role="alert" id="editWarning" style="display: none;">
+    Solo se puede editar un campo a la vez.
+</div>
+
+<script>
+    var ingredientInputs = document.querySelectorAll('.ingredient-input');
+
+    ingredientInputs.forEach(function (input) {
+        input.addEventListener('click', function () {
+            if (!this.readOnly) {
+                return;
+            }
+
+            var hasEditableField = Array.from(ingredientInputs).some(function (i) {
+                return !i.readOnly;
+            });
+
+            if (hasEditableField) {
+                document.getElementById('editWarning').style.display = 'block';
+                return;
+            }
+
+            ingredientInputs.forEach(function (i) {
+                i.readOnly = true;
+                i.classList.remove('editable');
+            });
+
+            this.readOnly = false;
+            this.classList.add('editable');
+
+            document.getElementById('editWarning').style.display = 'none';
+        });
+    });
+</script>
+

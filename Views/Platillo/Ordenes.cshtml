@@ -1,48 +1,64 @@
 @model List<pruebarestaurante.Models.Orden>
 
 @{
-    ViewData["Title"] = "Ordenes";
+    ViewData["Title"] = "Ticket";
+    decimal totalCost = 0;
 }
 
-<div class="jumbotron">
-    <h1 class="text-center">@ViewData["Ordenes"]</h1>
+<div class="ticket-container">
+    <div class="ticket-header">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+    </div>
+
+    <form method="get" action="@Url.Action("Ordenes")">
+        <div class="form-group row">
+            <div class="col-8">
+                <label for="idOrden" class="col-form-label">Numero de la mesa:</label>
+                <input type="number" class="form-control" id="idOrden" name="idOrden"
+                    placeholder="Ingrese el numero de la mesa" style="font-size: 18px; padding: 10px;" required>
+            </div>
+            <div class="col-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary">Ver ticket</button>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Context.Request.Query["idOrden"]) && Model != null && Model.Count > 0)
+    {
+        <div class="ticket-items">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CantidadOrdenPlatillo</td>
+                            <td>@item.NombrePlatillo</td>
+                            <td>@item.PrecioPlatillo</td>
+                            <td>@item.CostoPlatillos</td>
+                        </tr>
+                        totalCost += item.CostoPlatillos;
+                    }
+                </tbody>
+            </table>
+
+            <div class="ticket-total">
+                <strong>Total:</strong> @totalCost
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="@Url.Action("EliminarPlatillo", new { id = Context.Request.Query["idOrden"] })" class="btn btn-danger"
+                type="button">Cerrar ticket</a>
+        </div>
+    }
 </div>
 
-<table id="platillosTable" class="table table-bordered">
-    <thead class="thead-light">
-        <tr>
-            <th>Id Orden</th>
-            <th>Nombre Platillo</th>
-            <th>Cantidad a realizar</th>
-            <th>Eliminar platillos</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <tr>
-                <td>@Model[i].IdOrden</td>
-                <td>@Model[i].NombrePlatillo</td>
-                <td>@Model[i].CantidadOrdenPlatillo</td>
-                <td>
-                    <div class="d-grid gap-2 d-md-block">
-                        <a asp-action="EliminarPlatillo" asp-route-Id='@Model[i].IdOrden' class="btn btn-danger"
-                            type="button">Eliminar Platillo</a>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-@section Scripts {
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#platillosTable').DataTable();
-        });
-    </script>
-}

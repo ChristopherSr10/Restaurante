@@ -65,7 +65,6 @@ G:\workspace\pruebarestaurante\obj\Debug\net7.0\refint\prueba-restaurante.dll
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\appsettings.Development.json
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\appsettings.json
-G:\workspace\pruebarestaurante\bin\Debug\net7.0\prueba-restaurante.staticwebassets.runtime.json
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\prueba-restaurante.exe
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\prueba-restaurante.deps.json
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\prueba-restaurante.runtimeconfig.json
@@ -93,6 +92,12 @@ G:\workspace\pruebarestaurante\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.0\
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 G:\workspace\pruebarestaurante\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.csproj.CopyComplete
+G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.genruntimeconfig.cache
+G:\workspace\pruebarestaurante\obj\Debug\net7.0\ref\prueba-restaurante.dll
+E:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb
+J:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb
+G:\workspace\pruebarestaurante\bin\Debug\net7.0\prueba-restaurante.staticwebassets.runtime.json
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\staticwebassets\msbuild.prueba-restaurante.Microsoft.AspNetCore.StaticWebAssets.props
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\staticwebassets\msbuild.build.prueba-restaurante.props
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.prueba-restaurante.props
@@ -103,8 +108,3 @@ G:\workspace\pruebarestaurante\obj\Debug\net7.0\staticwebassets.development.json
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\scopedcss\bundle\prueba-restaurante.styles.css
 G:\workspace\pruebarestaurante\obj\Debug\net7.0\scopedcss\projectbundle\prueba-restaurante.bundle.scp.css
-G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.csproj.CopyComplete
-G:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.genruntimeconfig.cache
-G:\workspace\pruebarestaurante\obj\Debug\net7.0\ref\prueba-restaurante.dll
-E:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb
-J:\workspace\pruebarestaurante\obj\Debug\net7.0\prueba-restaurante.pdb

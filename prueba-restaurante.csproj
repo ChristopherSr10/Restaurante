@@ -10,5 +10,6 @@
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.33" />
   </ItemGroup>
+  
 
 </Project>

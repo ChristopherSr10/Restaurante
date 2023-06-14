@@ -7,7 +7,10 @@ using pruebarestaurante.Models;
 using MySql.Data.MySqlClient;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+
+
 
 
 namespace pruebarestaurante.Controllers
@@ -20,8 +23,86 @@ namespace pruebarestaurante.Controllers
         {
             _conf = conf;
         }
+        //---------------------------------------------------------------LOGIN----------------------------------------------------------------------------------
 
+        public IActionResult Login()
+        {
+            DataTable tbl = new DataTable();
+            using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+            {
+                cnx.Open();
+                string query = "SELECT * FROM platillo";
+                MySqlDataAdapter adp = new MySqlDataAdapter(query, cnx);
+                adp.Fill(tbl);
+                cnx.Close();
+            }
+            return View(tbl);
+        }
+        [HttpPost]
+        public IActionResult Login(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var connection = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
+                {
+                    connection.Open();
+                    var query = "SELECT * FROM usuarios WHERE username = @Username AND password = @Password";
+                    using (var command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Username", usuario.username);
+                        command.Parameters.AddWithValue("@Password", usuario.password);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+
+                                if (reader.Read())
+                                {
+                                    var tipoUsuario = reader.GetString("Tipo");
+                                    HttpContext.Session.SetString("TipoUsuario", tipoUsuario);
+                                }
+
+                                return RedirectToAction("Index", "Platillo");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError(string.Empty, "Credenciales inválidas");
+                            }
+                        }
+                    }
+                }
+            }
+            return View(usuario);
+        }
+
+
+        public IActionResult Logout()
+        {
+
+            return RedirectToAction("Login");
+        }
         public IActionResult Index()
+        {
+            var tipoUsuario = HttpContext.Session.GetString("TipoUsuario");
+
+            if (tipoUsuario == "Administrador")
+            {
+                return RedirectToAction("Admin");
+            }
+            else if (tipoUsuario == "Empleado")
+            {
+                return RedirectToAction("Empleado");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        public IActionResult Admin()
+        {
+            return View();
+        }
+        public IActionResult Empleado()
         {
             return View();
         }
@@ -40,7 +121,6 @@ namespace pruebarestaurante.Controllers
             }
             return View(tbl);
         }
-
         [HttpPost]
         public IActionResult Guardar(PlatilloIngredienteViewModel platillo, IngredienteViewModel[] ingredientes)
         {
@@ -85,7 +165,6 @@ namespace pruebarestaurante.Controllers
             return View(platillo);
         }
 
-
         public IActionResult Crear()
         {
             var modelo = new PlatilloIngredienteViewModel
@@ -94,8 +173,6 @@ namespace pruebarestaurante.Controllers
             };
             return View(modelo);
         }
-
-
 
         public IActionResult Editar(int id)
         {
@@ -234,8 +311,6 @@ namespace pruebarestaurante.Controllers
             }
         }
 
-
-
         public IActionResult Eliminar(int id)
         {
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
@@ -286,10 +361,7 @@ namespace pruebarestaurante.Controllers
             return RedirectToAction("Menu");
         }
 
-
-        //---------------------------------------------------------------ORDENES----------------------------------------------------------------------------------
-
-
+        //---------------------------------------------------------------ORDENES/ticket----------------------------------------------------------------------------------
         private string ObtenerNombrePlatillo(int idPlatillo)
         {
             string nombrePlatillo = string.Empty;
@@ -311,7 +383,7 @@ namespace pruebarestaurante.Controllers
             return nombrePlatillo;
         }
 
-        public IActionResult Ordenes()
+        public IActionResult Ordenes(int? idOrden)
         {
             List<Orden> ordenes = new List<Orden>();
 
@@ -319,7 +391,19 @@ namespace pruebarestaurante.Controllers
             {
                 cnx.Open();
                 string query = "SELECT * FROM ordenes";
+
+                if (idOrden.HasValue)
+                {
+                    query += " WHERE idOrden = @idOrden";
+                }
+
                 MySqlCommand cmd = new MySqlCommand(query, cnx);
+
+                if (idOrden.HasValue)
+                {
+                    cmd.Parameters.AddWithValue("@idOrden", idOrden.Value);
+                }
+
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -327,7 +411,9 @@ namespace pruebarestaurante.Controllers
                         Orden orden = new Orden();
                         orden.IdOrden = Convert.ToInt32(reader["idOrden"]);
                         orden.IdPlatillo = Convert.ToInt32(reader["idPlatillo"]);
+                        orden.PrecioPlatillo = Convert.ToDecimal(reader["precioPlatillo"]);
                         orden.CantidadOrdenPlatillo = Convert.ToInt32(reader["cantidadOrdenPlatillo"]);
+                        orden.CostoPlatillos = Convert.ToInt32(reader["costoPlatillos"]);
 
                         string nombrePlatillo = ObtenerNombrePlatillo(orden.IdPlatillo);
                         orden.NombrePlatillo = nombrePlatillo;
@@ -340,15 +426,12 @@ namespace pruebarestaurante.Controllers
             return View(ordenes);
         }
 
-
-
-
         public IActionResult EliminarPlatillo(int id)
         {
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
             {
                 cnx.Open();
-                string deleteQuery = "DELETE FROM ordenes WHERE idOrden = @id LIMIT 1"; // Limita la eliminación a una fila
+                string deleteQuery = "DELETE FROM ordenes WHERE idOrden = @id LIMIT 1"; 
                 MySqlCommand cmd = new MySqlCommand(deleteQuery, cnx);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
@@ -357,17 +440,20 @@ namespace pruebarestaurante.Controllers
             return RedirectToAction("Ordenes");
         }
 
-
         //---------------------------------------------------------------NUEVA ORDEN----------------------------------------------------------------------------------
-
-
-        public IActionResult NuevaOrden()
+        public IActionResult NuevaOrden(int? idOrdenExists)
         {
+            ViewBag.IdOrdenExists = idOrdenExists;
             DataTable tbl = new DataTable();
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
             {
                 cnx.Open();
-                string query = "SELECT * FROM platillo";
+                string query = "SELECT p.idPlatillo, p.nombrePlatillo, p.precioPlatillo, p.descripcionPlatillo, e.PorcionesDisponibles " +
+                               "FROM platillo p " +
+                               "JOIN existencias e ON p.idPlatillo = e.idPlatillo " +
+                               "JOIN platillo_ingrediente pi ON p.idPlatillo = pi.idPlatillo " +
+                               "JOIN ingrediente i ON pi.idIngrediente = i.idIngrediente " +
+                               "GROUP BY p.idPlatillo, p.nombrePlatillo, p.precioPlatillo, p.descripcionPlatillo, e.PorcionesDisponibles";
                 MySqlDataAdapter adp = new MySqlDataAdapter(query, cnx);
                 adp.Fill(tbl);
                 cnx.Close();
@@ -375,8 +461,9 @@ namespace pruebarestaurante.Controllers
             return View(tbl);
         }
 
+
         [HttpPost]
-        public IActionResult CrearOrden(Dictionary<string, string> cantidad, Dictionary<string, string> idPlatillo, Dictionary<string, string> precioPlatillo)
+        public IActionResult CrearOrden(Dictionary<string, string> cantidad, Dictionary<string, string> idPlatillo, Dictionary<string, string> precioPlatillo, int idOrden)
         {
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
             {
@@ -392,9 +479,14 @@ namespace pruebarestaurante.Controllers
                     lastOrderId = Convert.ToInt32(lastOrderIdObj);
                 }
 
-                string insertOrdenQuery = "INSERT INTO ordenes (idOrden, idPlatillo, precioPlatillo, cantidadOrdenPlatillo) VALUES (@idOrden, @idPlatillo, @precioPlatillo, @cantidadOrdenPlatillo)";
+                if (idOrden <= lastOrderId)
+                {
+                    return RedirectToAction("NuevaOrden", new { idOrdenExists = idOrden });
+                }
+
+                string insertOrdenQuery = "INSERT INTO ordenes (idOrden, idPlatillo, precioPlatillo, cantidadOrdenPlatillo, costoPlatillos) VALUES (@idOrden, @idPlatillo, @precioPlatillo, @cantidadOrdenPlatillo, @costoPlatillos)";
                 MySqlCommand insertOrdenCmd = new MySqlCommand(insertOrdenQuery, cnx);
-                insertOrdenCmd.Parameters.AddWithValue("@idOrden", lastOrderId + 1);
+                insertOrdenCmd.Parameters.AddWithValue("@idOrden", idOrden);
 
                 foreach (KeyValuePair<string, string> item in idPlatillo)
                 {
@@ -404,13 +496,24 @@ namespace pruebarestaurante.Controllers
 
                     if (cantidadOrdenPlatillo > 0)
                     {
+                        decimal costoPlatillos = precioPlatilloValue * cantidadOrdenPlatillo;
+
                         insertOrdenCmd.Parameters.Clear();
-                        insertOrdenCmd.Parameters.AddWithValue("@idOrden", lastOrderId + 1);
+                        insertOrdenCmd.Parameters.AddWithValue("@idOrden", idOrden);
                         insertOrdenCmd.Parameters.AddWithValue("@idPlatillo", idPlatilloValue);
                         insertOrdenCmd.Parameters.AddWithValue("@precioPlatillo", precioPlatilloValue);
                         insertOrdenCmd.Parameters.AddWithValue("@cantidadOrdenPlatillo", cantidadOrdenPlatillo);
+                        insertOrdenCmd.Parameters.AddWithValue("@costoPlatillos", costoPlatillos);
 
                         insertOrdenCmd.ExecuteNonQuery();
+
+                        string updateExistenciasQuery = "UPDATE existencias " +
+                                                        "SET PorcionesDisponibles = PorcionesDisponibles - @cantidadOrdenPlatillo " +
+                                                        "WHERE idPlatillo = @idPlatillo";
+                        MySqlCommand updateExistenciasCmd = new MySqlCommand(updateExistenciasQuery, cnx);
+                        updateExistenciasCmd.Parameters.AddWithValue("@cantidadOrdenPlatillo", cantidadOrdenPlatillo);
+                        updateExistenciasCmd.Parameters.AddWithValue("@idPlatillo", idPlatilloValue);
+                        updateExistenciasCmd.ExecuteNonQuery();
                     }
                 }
 
@@ -418,15 +521,9 @@ namespace pruebarestaurante.Controllers
             }
 
             return RedirectToAction("Index");
-
         }
 
-
-
         //---------------------------------------------------------------EXISTENCIAS MENU----------------------------------------------------------------------------------
-
-
-
         public IActionResult ExistenciasMenu()
         {
             DataTable tbl = new DataTable();
@@ -446,14 +543,39 @@ namespace pruebarestaurante.Controllers
                 for (int i = 0; i < tbl.Rows.Count; i++)
                 {
                     long platilloId = Convert.ToInt64(tbl.Rows[i]["idPlatillo"]);
-                    int porcionesDisponibles = CalcularPorcionesDisponibles(cnx, platilloId);
-                    tbl.Rows[i]["Porciones Disponibles"] = porcionesDisponibles;
+
+                    string selectQuery = "SELECT COUNT(*) FROM existencias WHERE idPlatillo = @idPlatillo";
+                    MySqlCommand selectCmd = new MySqlCommand(selectQuery, cnx);
+                    selectCmd.Parameters.AddWithValue("@idPlatillo", platilloId);
+                    int existenciasCount = Convert.ToInt32(selectCmd.ExecuteScalar());
+
+                    if (existenciasCount > 0)
+                    {
+                        int porcionesDisponibles = CalcularPorcionesDisponibles(cnx, platilloId);
+                        string updateQuery = "UPDATE existencias SET PorcionesDisponibles = @porcionesDisponibles WHERE idPlatillo = @idPlatillo";
+                        MySqlCommand updateCmd = new MySqlCommand(updateQuery, cnx);
+                        updateCmd.Parameters.AddWithValue("@porcionesDisponibles", porcionesDisponibles);
+                        updateCmd.Parameters.AddWithValue("@idPlatillo", platilloId);
+                        updateCmd.ExecuteNonQuery();
+                        tbl.Rows[i]["Porciones Disponibles"] = porcionesDisponibles;
+                    }
+                    else
+                    {
+                        int porcionesDisponibles = CalcularPorcionesDisponibles(cnx, platilloId);
+                        string insertQuery = "INSERT INTO existencias (idPlatillo, PorcionesDisponibles) VALUES (@idPlatillo, @porcionesDisponibles)";
+                        MySqlCommand insertCmd = new MySqlCommand(insertQuery, cnx);
+                        insertCmd.Parameters.AddWithValue("@idPlatillo", platilloId);
+                        insertCmd.Parameters.AddWithValue("@porcionesDisponibles", porcionesDisponibles);
+                        insertCmd.ExecuteNonQuery();
+                        tbl.Rows[i]["Porciones Disponibles"] = porcionesDisponibles;
+                    }
                 }
 
                 cnx.Close();
             }
 
             return View(tbl);
+
         }
 
         private int CalcularPorcionesDisponibles(MySqlConnection cnx, long platilloId)
@@ -483,58 +605,6 @@ namespace pruebarestaurante.Controllers
             }
 
             return porcionesDisponibles;
-        }
-
-        //---------------------------------------------------------------LOGIN----------------------------------------------------------------------------------
-
-        public IActionResult Login()
-        {
-            DataTable tbl = new DataTable();
-            using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
-            {
-                cnx.Open();
-                string query = "SELECT * FROM platillo";
-                MySqlDataAdapter adp = new MySqlDataAdapter(query, cnx);
-                adp.Fill(tbl);
-                cnx.Close();
-            }
-            return View(tbl);
-        }
-        [HttpPost]
-        public IActionResult Login(Usuario usuario)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var connection = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
-                {
-                    connection.Open();
-                    var query = "SELECT * FROM usuarios WHERE username = @Username AND password = @Password";
-                    using (var command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Username", usuario.username);
-                        command.Parameters.AddWithValue("@Password", usuario.password);
-                        using (var reader = command.ExecuteReader())
-                        {
-                            if (reader.HasRows)
-                            {
-                                // Usuario autenticado correctamente
-                                return RedirectToAction("Index", "Platillo");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError(string.Empty, "Credenciales inválidas");
-                            }
-                        }
-                    }
-                }
-            }
-            return View(usuario);
-        }
-
-        public IActionResult Logout()
-        {
-
-            return RedirectToAction("Login");
         }
 
     }

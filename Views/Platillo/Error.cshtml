@@ -1,0 +1,40 @@
+@model Microsoft.AspNetCore.Diagnostics.ExceptionHandlerFeature
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #dc3545;
+        }
+
+        p {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Error</h1>
+
+    <p>Se ha producido un error en la aplicación.</p>
+
+    @if (Model != null && !string.IsNullOrEmpty(Model.Error?.Message))
+    {
+        <p>@Model.Error.Message</p>
+    }
+
+    @if (Model != null && !string.IsNullOrEmpty(Model.Error?.StackTrace))
+    {
+        <pre>@Model.Error.StackTrace</pre>
+    }
+</body>
+
+</html>

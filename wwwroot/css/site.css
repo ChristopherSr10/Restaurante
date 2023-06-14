@@ -141,11 +141,50 @@ body {
 .restaurant-name {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
-    color: #d51c31;
+    color: #000000;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 .login-box {
     margin: 200px;
+}
+
+.ticket-container {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px dashed #aaa;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+}
+
+.ticket-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.ticket-items table {
+    margin-bottom: 20px;
+}
+
+.ticket-items th,
+.ticket-items td {
+    padding: 6px;
+    text-align: left;
+}
+
+.ticket-total {
+    text-align: right;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.editable {
+    background-color: white;
 }
