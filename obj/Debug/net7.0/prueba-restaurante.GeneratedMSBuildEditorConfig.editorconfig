@@ -9,97 +9,97 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = prueba_restaurante
 build_property.RootNamespace = prueba_restaurante
-build_property.ProjectDir = g:\workspace\pruebarestaurante\
+build_property.ProjectDir = G:\workspace\pruebarestaurante\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = g:\workspace\pruebarestaurante
+build_property.MSBuildProjectDirectory = G:\workspace\pruebarestaurante
 build_property._RazorSourceGeneratorDebug = 
 
-[g:/workspace/pruebarestaurante/Views/Home/Index.cshtml]
+[G:/workspace/pruebarestaurante/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Home/Privacy.cshtml]
+[G:/workspace/pruebarestaurante/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Admin.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Admin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cQWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Crear.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Editar.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cRWRpdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Eliminar.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Eliminar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cRWxpbWluYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Empleado.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Empleado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cRW1wbGVhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Error.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/ExistenciasMenu.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/ExistenciasMenu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cRXhpc3RlbmNpYXNNZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Index.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Login.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Menu.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Menu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cTWVudS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/NuevaOrden.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/NuevaOrden.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cTnVldmFPcmRlbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Platillo/Ordenes.cshtml]
+[G:/workspace/pruebarestaurante/Views/Platillo/Ordenes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhdGlsbG9cT3JkZW5lcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Shared/Error.cshtml]
+[G:/workspace/pruebarestaurante/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Shared/_LayoutAdmin.cshtml]
+[G:/workspace/pruebarestaurante/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Shared/_LayoutEmpleado.cshtml]
+[G:/workspace/pruebarestaurante/Views/Shared/_LayoutEmpleado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRFbXBsZWFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Shared/_LayoutLogin.cshtml]
+[G:/workspace/pruebarestaurante/Views/Shared/_LayoutLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Shared/_ValidationScriptsPartial.cshtml]
+[G:/workspace/pruebarestaurante/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/_ViewImports.cshtml]
+[G:/workspace/pruebarestaurante/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/_ViewStart.cshtml]
+[G:/workspace/pruebarestaurante/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[g:/workspace/pruebarestaurante/Views/Shared/_Layout.cshtml]
+[G:/workspace/pruebarestaurante/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-etw1ih20ii

@@ -11,19 +11,18 @@
 </div>
 <form asp-action="Actualizar" method="post">
     <input type="hidden" asp-for="idPlatillo" />
-    <div class="form-group">
-        <label>Nombre platillo:</label>
-        <input asp-for="nombrePlatillo" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Precio:</label>
-        <input asp-for="precioPlatillo" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Descripción:</label>
-        <input asp-for="descripcionPlatillo" class="form-control" />
-    </div>
-
+<div class="form-group">
+    <label>Nombre platillo:</label>
+    <input asp-for="nombrePlatillo" class="form-control ingredient-input" readonly />
+</div>
+<div class="form-group">
+    <label>Precio:</label>
+    <input asp-for="precioPlatillo" class="form-control ingredient-input" readonly />
+</div>
+<div class="form-group">
+    <label>Descripción:</label>
+    <input asp-for="descripcionPlatillo" class="form-control ingredient-input" readonly />
+</div>
     <h4>Ingredientes:</h4>
 
     @for (int i = 0; i < Model.Ingredientes.Count; i++)
@@ -77,5 +76,6 @@
             document.getElementById('editWarning').style.display = 'none';
         });
     });
+    
 </script>
 

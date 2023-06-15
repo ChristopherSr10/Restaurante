@@ -108,7 +108,7 @@ namespace pruebarestaurante.Controllers
         }
 
         //---------------------------------------------------------------MENU----------------------------------------------------------------------------------
-        public IActionResult Menu()
+       public IActionResult Menu()
         {
             DataTable tbl = new DataTable();
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
@@ -121,6 +121,7 @@ namespace pruebarestaurante.Controllers
             }
             return View(tbl);
         }
+
         [HttpPost]
         public IActionResult Guardar(PlatilloIngredienteViewModel platillo, IngredienteViewModel[] ingredientes)
         {
@@ -159,11 +160,12 @@ namespace pruebarestaurante.Controllers
                     cnx.Close();
                 }
 
-                return RedirectToAction("Menu");
+                return RedirectToAction("ADMI");
             }
 
             return View(platillo);
         }
+
 
         public IActionResult Crear()
         {
@@ -173,7 +175,6 @@ namespace pruebarestaurante.Controllers
             };
             return View(modelo);
         }
-
         public IActionResult Editar(int id)
         {
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))

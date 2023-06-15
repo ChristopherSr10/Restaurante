@@ -2,9 +2,6 @@
 @{
     ViewData["Title"] = "Crear Platillo";
 }
-@section Scripts {
-    <script src="~/js/site.js"></script>
-}
 
 <div class="jumbotron">
     <h1 class="text-center restaurant-name">@ViewData["Title"]</h1>
@@ -12,31 +9,65 @@
 <form id="platilloForm" asp-action="Guardar">
     <div class="form-group">
         <label>Nombre Platillo:</label>
-        <input asp-for="nombrePlatillo" class="form-control" required />
+        <input asp-for="nombrePlatillo" class="form-control" placeholder="Ingrese el nombre" required />
     </div>
-    <div class="form-group">
-        <label>Precio Platillo:</label>
-        <input asp-for="precioPlatillo" class="form-control" required />
-    </div>
+  <div class="form-group">
+    <label>Precio Platillo:</label>
+    <input id="precioPlatilloInput" asp-for="precioPlatillo" type="number" class="form-control" step="0.01" placeholder="Ingrese el precio" required />
+</div>
     <div class="form-group">
         <label>Descripción Platillo:</label>
-        <textarea asp-for="descripcionPlatillo" class="form-control" required></textarea>
+        <textarea asp-for="descripcionPlatillo" class="form-control" placeholder="Ingrese la descripcion" required></textarea>
     </div>
 
     <div class="form-group">
         <label>Número de Ingredientes:</label>
-        <input type="number" id="numeroIngredientes" class="form-control" min="0" required />
+        <input type="number" id="numeroIngredientes" class="form-control" min="0" placeholder="Ingrese el numero de ingredientes" required />
     </div>
 
     <div id="ingredientes-container"></div>
 
-    <div id="crearIngredientesBtnContainer" style="display: none;">
+    <div id="crearIngredientes">
         <button type="button" onclick="crearFormularios()" class="btn btn-primary">Crear Ingredientes</button>
     </div>
 
-    <div id="guardarBtnContainer" style="display: none;">
+    <div id="guardar" style="display: none;">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 </form>
 
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            var precioPlatilloInput = document.getElementById('precioPlatilloInput');
+            precioPlatilloInput.value = '';
+        });
+        $(document).ready(function() {
+            $("#crearIngredientes").show();
+        });
 
+        function crearFormularios() {
+            var numIngredientes = parseInt($("#numeroIngredientes").val());
+            var ingredientesContainer = $("#ingredientes-container");
+
+            ingredientesContainer.empty();
+
+            for (var i = 1; i <= numIngredientes; i++) {
+                var formulario = `
+                    <div class="form-group">
+                        <label>Ingrediente ${i}:</label>
+                        <input name="ingredientes[${i - 1}].nombreIngrediente" class="form-control" placeholder="Ingrese el nombre de ingrediente" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Cantidad Disponible:</label>
+                        <input name="ingredientes[${i - 1}].cantidadDisponible" type="number" class="form-control" placeholder="Ingrese la cantidad" required />
+                    </div>
+                `;
+
+                ingredientesContainer.append(formulario);
+            }
+            $("#crearIngredientes").hide();
+            $("#guardar").show();
+        }
+    </script>
+}
