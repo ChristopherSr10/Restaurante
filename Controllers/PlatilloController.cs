@@ -108,7 +108,7 @@ namespace pruebarestaurante.Controllers
         }
 
         //---------------------------------------------------------------MENU----------------------------------------------------------------------------------
-       public IActionResult Menu()
+        public IActionResult Menu()
         {
             DataTable tbl = new DataTable();
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
@@ -160,7 +160,7 @@ namespace pruebarestaurante.Controllers
                     cnx.Close();
                 }
 
-                return RedirectToAction("ADMI");
+                return RedirectToAction("Admin");
             }
 
             return View(platillo);
@@ -432,7 +432,7 @@ namespace pruebarestaurante.Controllers
             using (MySqlConnection cnx = new MySqlConnection(_conf.GetConnectionString("DevConnection")))
             {
                 cnx.Open();
-                string deleteQuery = "DELETE FROM ordenes WHERE idOrden = @id LIMIT 1"; 
+                string deleteQuery = "DELETE FROM ordenes WHERE idOrden = @id LIMIT 1";
                 MySqlCommand cmd = new MySqlCommand(deleteQuery, cnx);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
@@ -508,21 +508,36 @@ namespace pruebarestaurante.Controllers
 
                         insertOrdenCmd.ExecuteNonQuery();
 
-                        string updateExistenciasQuery = "UPDATE existencias " +
-                                                        "SET PorcionesDisponibles = PorcionesDisponibles - @cantidadOrdenPlatillo " +
-                                                        "WHERE idPlatillo = @idPlatillo";
-                        MySqlCommand updateExistenciasCmd = new MySqlCommand(updateExistenciasQuery, cnx);
-                        updateExistenciasCmd.Parameters.AddWithValue("@cantidadOrdenPlatillo", cantidadOrdenPlatillo);
-                        updateExistenciasCmd.Parameters.AddWithValue("@idPlatillo", idPlatilloValue);
-                        updateExistenciasCmd.ExecuteNonQuery();
+                        string updateExistenciasQueryIngrediente = "UPDATE ingrediente AS i " +
+                            "JOIN platillo_ingrediente AS pi ON pi.idIngrediente = i.idIngrediente " +
+                            "SET i.cantidadDisponible = i.cantidadDisponible - @cantidadOrdenPlatillo " +
+                            "WHERE pi.idPlatillo = @idPlatillo";
+
+                        MySqlCommand updateExistenciasCmdIngrediente = new MySqlCommand(updateExistenciasQueryIngrediente, cnx);
+                        updateExistenciasCmdIngrediente.Parameters.AddWithValue("@idPlatillo", idPlatilloValue);
+                        updateExistenciasCmdIngrediente.Parameters.AddWithValue("@cantidadOrdenPlatillo", cantidadOrdenPlatillo);
+                        updateExistenciasCmdIngrediente.ExecuteNonQuery();
+
+                        string updateExistenciasQueryPlatillo = "UPDATE platillo_ingrediente AS pi " +
+                            "JOIN ingrediente AS i ON pi.idIngrediente = i.idIngrediente " +
+                            "SET pi.cantidadDisponible = pi.cantidadDisponible - @cantidadOrdenPlatillo " +
+                            "WHERE pi.idPlatillo = @idPlatillo";
+
+                        MySqlCommand updateExistenciasCmdPlatillo = new MySqlCommand(updateExistenciasQueryPlatillo, cnx);
+                        updateExistenciasCmdPlatillo.Parameters.AddWithValue("@idPlatillo", idPlatilloValue);
+                        updateExistenciasCmdPlatillo.Parameters.AddWithValue("@cantidadOrdenPlatillo", cantidadOrdenPlatillo);
+                        updateExistenciasCmdPlatillo.ExecuteNonQuery();
                     }
                 }
 
                 cnx.Close();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ExistenciasMenu");
         }
+
+
+
 
         //---------------------------------------------------------------EXISTENCIAS MENU----------------------------------------------------------------------------------
         public IActionResult ExistenciasMenu()
@@ -581,9 +596,11 @@ namespace pruebarestaurante.Controllers
 
         private int CalcularPorcionesDisponibles(MySqlConnection cnx, long platilloId)
         {
-            int porcionesDisponibles = 0;
+            int porcionesDisponibles = int.MaxValue;
 
-            string consultaIngredientes = "SELECT cantidadDisponible FROM platillo_ingrediente WHERE idPlatillo = @idPlatillo";
+            string consultaIngredientes = "SELECT pi.cantidadDisponible FROM platillo_ingrediente pi " +
+                                          "JOIN ingrediente i ON pi.idIngrediente = i.idIngrediente " +
+                                          "WHERE pi.idPlatillo = @idPlatillo";
             MySqlCommand ingredientesCmd = new MySqlCommand(consultaIngredientes, cnx);
             ingredientesCmd.Parameters.AddWithValue("@idPlatillo", platilloId);
 
@@ -595,10 +612,10 @@ namespace pruebarestaurante.Controllers
 
                     if (cantidadIngrediente == 0)
                     {
-                        return 0;
+                        return 0; 
                     }
 
-                    if (porcionesDisponibles == 0 || cantidadIngrediente < porcionesDisponibles)
+                    if (cantidadIngrediente < porcionesDisponibles)
                     {
                         porcionesDisponibles = cantidadIngrediente;
                     }
@@ -607,6 +624,8 @@ namespace pruebarestaurante.Controllers
 
             return porcionesDisponibles;
         }
+
+
 
     }
 }
